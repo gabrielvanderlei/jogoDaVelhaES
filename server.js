@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 
-let partidas = [];
+let todasPartidas = [];
 let verificadorSimples = {};
 app.use(express.json());
 
@@ -23,23 +23,48 @@ app.get('/partida/nova', function(req, res){
 
     res.send({
         message: "Foi criada uma nova partida",
-        // next: "Use o código de verificação para poder enviar jogadas",
-        idPartida: novaPartida - 1,
-        // code: verificationCode
+        idPartida: novaPartida - 1
     })
+});
+
+app.post('/partida/:partida/status/:user', function(req,res){
+    const partida = req.params.partida;
+
+    if(!isNaN(partida) || (partida < 0) || !todasPartidas.length < partida){
+        res.send({
+            "message": "Partida inválida"
+        });
+
+        return false;
+    }
+
+    const partidaAtual = todasPartidas[partida];
+    const user = req.params.user;
+
+    if(
+        (user !== 'player1') ||
+        (user !== 'player2')
+    ) {
+        res.send({
+            "message": "Usuário inválido"
+        });
+
+        return false;
+    }
 });
 
 app.post('/partida/:partida/jogar/:user', function(req,res){
     const partida = req.params.partida;
-    // const code = req.body.code;
-    // if(code !== partidas[partida].verificationCode){
-    //     res.send({
-    //         "message": "Código de verificação inválido"
-    //     });
 
-    //     return false;
-    // }
+    if(!isNaN(partida) || (partida < 0) || !todasPartidas.length < partida){
+        res.send({
+            "message": "Partida inválida"
+        });
 
+        return false;
+    }
+
+    const partidaAtual = todasPartidas[partida];
     const user = req.params.user;
 
     if(
@@ -53,6 +78,25 @@ app.post('/partida/:partida/jogar/:user', function(req,res){
         return false;
     }
 
+    if(partidaAtual['winner'] !== 0){
+        if(partidaAtual['winner'] === user){
+            res.send({
+                "message": "Parabéns, você ganhou. Obrigado por jogar.",
+                "end": true
+            });
+    
+            return false;
+        } else {
+            res.send({
+                "message": "O jogo terminou, você perdeu. Obrigado por jogar.",
+                "end": true
+            });
+
+            return false;
+        }
+    }
+
+    const partidaAtualDoUsuario = partidaAtual[user];
     const jogada = req.body.jogada;
 
     if(
@@ -65,24 +109,24 @@ app.post('/partida/:partida/jogar/:user', function(req,res){
         (jogada !== 31) ||
         (jogada !== 32) ||
         (jogada !== 33) ||
-        (partida[user].includes(jogada))
+        (partidaAtualDoUsuario.includes(jogada))
     ) {
         res.send({
             "message": "Jogada Inválida",
-            "error": (jogada in partida[user]) ? "Jogada indisponível" : "Jogdada inexistente"
+            "error": (partidaAtualDoUsuario.includes(jogada)) ? "Jogada indisponível" : "Jogdada inexistente"
         });
 
         return false;
     }
     
     if(
-        (partida[user].includes([11,12,13])) ||
-        (partida[user].includes([11,22,33])) ||
-        (partida[user].includes([11,21,31])) ||
-        (partida[user].includes([13,23,33])) ||
-        (partida[user].includes([31,32,33]))
+        (partidaAtualDoUsuario.includes([11,12,13])) ||
+        (partidaAtualDoUsuario.includes([11,22,33])) ||
+        (partidaAtualDoUsuario.includes([11,21,31])) ||
+        (partidaAtualDoUsuario.includes([13,23,33])) ||
+        (partidaAtualDoUsuario.includes([31,32,33]))
     ) {
-        partida[winner] = jogador;
+        todasPartidas[partida]['winner'] = jogador;
         
         res.send({
             "message": "Jogada Ganhadora!",
