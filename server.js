@@ -30,7 +30,7 @@ app.get('/partida/nova', function(req, res){
 app.get('/partida/:partida/status/:user', function(req,res){
     const partida = req.params.partida;
 
-    if(!isNaN(partida) || (partida < 0) || !todasPartidas.length < partida){
+    if(isNaN(partida) || (partida < 0) || todasPartidas.length < partida){
         res.send({
             "message": "Partida inválida"
         });
