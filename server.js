@@ -14,7 +14,7 @@ app.get('/', function(req, res){
 
 app.get('/partida/nova', function(req, res){
     const verificationCode = Math.round(Math.random()*100);
-    const novaPartida = partidas.push({
+    const novaPartida = todasPartidas.push({
         player1: {},
         player2: {},
         winner: 0,
@@ -27,7 +27,7 @@ app.get('/partida/nova', function(req, res){
     })
 });
 
-app.post('/partida/:partida/status/:user', function(req,res){
+app.get('/partida/:partida/status/:user', function(req,res){
     const partida = req.params.partida;
 
     if(!isNaN(partida) || (partida < 0) || !todasPartidas.length < partida){
