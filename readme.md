@@ -21,15 +21,15 @@ Visando o padrão RESTFull:
 ## Protocolo de uso
 
 POST /partida
-Cria nova partida
+- Cria nova partida
 
 POST /partida/:partida/jogar/:user BODY { "jogada": [11,12,13,21,22,23,31,32,33] }
-Exemplo: /partida/0/jogar/player1 BODY { "jogada": 11 }
-Executa uma jogada, e também controla caso alguém ganhe.
+- Exemplo: /partida/0/jogar/player1 BODY { "jogada": 11 }
+- Executa uma jogada, e também controla caso alguém ganhe.
 
 GET /partida/:partida/status/:user
-Exemplo: /partida/0/status/player1
-Verifica o status da partida.
+- Exemplo: /partida/0/status/player1
+- Verifica o status da partida.
 
 ### Funcionalidades
 * Iniciar partidas
