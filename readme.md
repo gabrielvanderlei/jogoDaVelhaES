@@ -5,7 +5,9 @@ Mini-projeto desenvolvido para obtenção de nota na disciplina IF977 - Engenhar
 ## Qual o projeto da API? 
 
 Jogo da Velha baseado em requisições. Onde cada jogada leva em conta as posições disponíveis como uma matriz 3x3. Por exemplo, um jogador ao definir os campos 11, 12 e 13 irá preencher toda a fileira superior 
-das posições disponíveis, ganhando o jogo. Está disponível também um arquivo do Insomnia para facilitar a visualização e utilização do jogo.
+das posições disponíveis, ganhando o jogo. Está disponível também um arquivo do Insomnia para facilitar a visualização e utilização do jogo. A API pode ser acessada on-line clicando [aqui](https://jogo-da-velha-es.herokuapp.com/). 
+
+Está disponível no repositório também o arquivo "Insomnia Export File.json" que pode ser importado no Insomnia e contém as requisições que devem ser usadas para interagir com a API tanto localmente quanto com a que está disponível no Heroku.
 
 ## Quais as decisões foram tomadas pra ser assim?
 
