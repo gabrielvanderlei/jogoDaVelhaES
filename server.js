@@ -32,7 +32,7 @@ app.get('/partida/:partida/status/:user', function(req,res){
 
     if(isNaN(partida) || (partida < 0) || !todasPartidas.length < partida){
         res.send({
-            "message": "Partida inválida"
+            "message": "Partida inválida",
         });
 
         return false;
@@ -68,7 +68,7 @@ app.post('/partida/:partida/jogar/:user', function(req,res){
     const user = req.params.user;
 
     if(
-        (user !== 'player1') ||
+        (user !== 'player1') &&
         (user !== 'player2')
     ) {
         res.send({
