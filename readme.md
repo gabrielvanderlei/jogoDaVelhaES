@@ -2,13 +2,23 @@
 
 Mini-projeto desenvolvido para obtenção de nota na disciplina IF977 - Engenharia de Software, do curso de Sistemas de Informação, da Universidade Federal de Pernambuco.
 
-## Descrição
+## Qual o projeto da API? 
 
-Jogo da Velha baseado em requisições.
+Jogo da Velha baseado em requisições. Onde cada jogada leva em conta as posições disponíveis como uma matriz 3x3. Por exemplo, um jogador ao definir os campos 11, 12 e 13 irá preencher toda a fileira superior 
+das posições disponíveis, ganhando o jogo. Está disponível também um arquivo do Insomnia para facilitar a visualização e utilização do jogo.
+
+## Quais as decisões foram tomadas pra ser assim?
+
+Focamos na simplicidade do resultado final em conjunto com sua usabilidade e regras de negócio.
+
+Visando o padrão RESTFull:
+- É possível criar os elementos de partidas através de um POST para o recurso partida.
+- A criação de novas jogadas ocorre através do o recurso jogar (dentro de uma partida específica e a jogada é criada com base em um player específico). 
+- É possível obter o status de um player em uma partida através de uma requisição GET.
 
 ## Protocolo de uso
 
-GET /partida/nova
+POST /partida
 Cria nova partida
 
 POST /partida/:partida/jogar/:user BODY { "jogada": [11,12,13,21,22,23,31,32,33] }
@@ -22,7 +32,7 @@ Verifica o status da partida.
 ### Funcionalidades
 * Iniciar partidas
 * Consultar estado das partidas
-* Realizar jogadas
+* Realizar jogadas 
 
 ## Autores
 * Gabriel Vanderlei Oliveira

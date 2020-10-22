@@ -22,7 +22,7 @@ app.get('/', function (req, res) {
     })
 })
 
-app.get('/partida/nova', function (req, res) {
+app.post('/partida', function (req, res) {
     const novaPartida = todasPartidas.push({
         player1: [],
         player2: [],
@@ -77,6 +77,6 @@ app.post('/partida/:partida/jogar/:user', function (req, res) {
     }
 });
 
-app.listen(3000, function () {
+app.listen(process.env.PORT || 3000, function () {
     console.log("Server listening at localhost:3000")
 });
